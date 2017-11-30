@@ -1,0 +1,25 @@
+0.0.0.0:80 {
+  tls off
+  gzip
+  cache
+
+  proxy / localhost:81
+  header / {
+    -Server
+    -X-Powered-By
+  }
+}
+
+localhost:81 {
+  tls off
+
+  fastcgi / 127.0.0.1:9000 php {
+    root /app/public
+  }
+
+  rewrite {
+    to /index.php?{query}
+  }
+
+  on startup php-fpm
+}
