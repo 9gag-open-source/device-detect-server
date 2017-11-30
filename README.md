@@ -25,15 +25,19 @@ $ curl -s http://localhost/v1/detect?ua=Mozilla%2F5.0%20%28X11%3B%20Linux%20x86_
     "engine": "Blink",
     "engine_version": ""
   },
+  "browser_family": "Chrome",
   "os": {
     "name": "GNU/Linux",
     "short_name": "LIN",
     "version": "",
     "platform": "x64"
   },
-  "device": 0,
-  "brand": "",
-  "model": "",
+  "os_family": "GNU/Linux",
+  "device": {
+    "type": "desktop",
+    "brand": "",
+    "model": ""
+  },
   "bot": null
 }
 ```
@@ -50,15 +54,19 @@ $ curl -s http://localhost/v1/detect?ua=Mozilla%2F5.0%20%28iPhone%3B%20CPU%20iPh
     "engine": "WebKit",
     "engine_version": "602.1.50"
   },
+  "browser_family": "Safari",
   "os": {
     "name": "iOS",
     "short_name": "IOS",
     "version": "10.0",
     "platform": ""
   },
-  "device": 1,
-  "brand": "Apple",
-  "model": "iPhone",
+  "os_family": "iOS",
+  "device": {
+    "type": "smartphone",
+    "brand": "AP",
+    "model": "iPhone"
+  },
   "bot": null
 }
 ```
@@ -68,10 +76,14 @@ Bot user-agent example:
 $ curl -s http://localhost/v1/detect?ua=Mozilla%2F5.0%20%28compatible%3B%20Googlebot%2F2.1%3B%20%2Bhttp%3A%2F%2Fwww.google.com%2Fbot.html%29 | jq
 {
   "client": null,
+  "browser_family": "Unknown",
   "os": null,
-  "device": null,
-  "brand": "",
-  "model": "",
+  "os_family": "Unknown",
+  "device": {
+    "type": "",
+    "brand": "",
+    "model": ""
+  },
   "bot": {
     "name": "Googlebot",
     "category": "Search bot",

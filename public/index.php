@@ -5,6 +5,8 @@ require __DIR__.'/../vendor/autoload.php';
 // Create and configure Slim app
 use DeviceDetector\Cache\PSR6Bridge;
 use DeviceDetector\DeviceDetector;
+use DeviceDetector\Parser\Client\Browser;
+use DeviceDetector\Parser\OperatingSystem;
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -52,10 +54,14 @@ $app->get('/v1/detect', function (Request $req,  Response $resp, $args = []) use
 
     return $resp->withJson([
         'client' => $dd->getClient(), // holds information about browser, feed reader, media player, ...
+        'browser_family' => Browser::getBrowserFamily($dd->getClient('short_name')) ?: 'Unknown',
         'os' => $dd->getOs(),
-        'device' => $dd->getDevice(),
-        'brand' => $dd->getBrandName(),
-        'model' => $dd->getModel(),
+        'os_family' => OperatingSystem::getOsFamily($dd->getOs('short_name')) ?: 'Unknown',
+        'device' => [
+            'type' => $dd->getDeviceName(),
+            'brand' => $dd->getBrand(),
+            'model' => $dd->getModel(),
+        ],
         'bot' => $dd->getBot(),
     ]);
 })->add(new \Slim\HttpCache\Cache('public', 86400));

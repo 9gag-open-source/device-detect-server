@@ -3,6 +3,7 @@
     "description": "Extremely simple API service for Device Detection",
     "type": "project",
     "require": {
+        "php": ">7.0",
         "slim/slim": "^3.0",
         "slim/http-cache": "^0.4.0",
         "piwik/device-detector": "^3.9",
