@@ -34,6 +34,8 @@ $config = [
         };
     },
 ];
+$cacheMaxAge = getenv('CACHE_CONTROL_MAX_AGE') ?: 86400;
+
 $app = new App($config);
 
 // Set up Device-Detect
@@ -64,7 +66,7 @@ $app->get('/v1/detect', function (Request $req,  Response $resp, $args = []) use
         ],
         'bot' => $dd->getBot(),
     ]);
-})->add(new \Slim\HttpCache\Cache('public', 86400));
+})->add(new \Slim\HttpCache\Cache('public', $cacheMaxAge));
 
 $app->get('/v1/health-check', function (Request $req,  Response $resp) use ($ddCache) {
    return $resp->withJson([
