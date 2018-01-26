@@ -61,7 +61,8 @@ $app->get('/v1/detect', function (Request $req,  Response $resp, $args = []) use
         'os_family' => OperatingSystem::getOsFamily($dd->getOs('short_name')) ?: 'Unknown',
         'device' => [
             'type' => $dd->getDeviceName(),
-            'brand' => $dd->getBrand(),
+            'brand' => $dd->getBrandName(),
+            'brand_abbr' => $dd->getBrand(),
             'model' => $dd->getModel(),
         ],
         'bot' => $dd->getBot(),
